@@ -20,7 +20,7 @@ const Header = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mb-2 mb-lg-0 ms-auto">
-            <li className="nav-item me-4">
+            <li className="nav-item me-1">
               <Link className="nav-link" aria-current="page" to={"/review"}>
                 Pregled kvizova
               </Link>

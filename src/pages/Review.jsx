@@ -1,8 +1,21 @@
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { getQuizzes } from "../features/quizzes/quizSlice";
 import Table from "../components/Table";
+import { useEffect } from "react";
+import Spinner from "../components/Spinner";
 
 const Review = () => {
-  const quizzes = [{ fedf: 222 }, { ddd: 22 }, 5, 5, 2, 22, 2, 2];
+  const dispatch = useDispatch();
+  const { quizzes, isLoading } = useSelector((state) => state.quiz);
+  useEffect(() => {
+    dispatch(getQuizzes());
+  }, []);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
   return (
     <>
       {quizzes?.length === 0 ? (

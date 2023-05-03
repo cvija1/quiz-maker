@@ -1,12 +1,12 @@
-const QuizItem = () => {
+const QuizItem = ({ quiz }) => {
   return (
     <tr
       onClick={() => console.log("sss")}
       style={{ cursor: "pointer" }}
-      className="table-dark"
+      className="table-dark "
     >
-      <td className="d-flex align-items-center">
-        <div>Kviz 1</div>
+      <td className="d-flex align-items-center pe-0 ps-0">
+        <div>{quiz.name}</div>
         <div className="ms-auto d-flex">
           <div>
             <button
@@ -20,7 +20,7 @@ const QuizItem = () => {
               Pokreni
             </button>
           </div>
-          <div className="me-2 ms-2">
+          <div className=" ms-2">
             <button
               onClick={(e) => {
                 e.stopPropagation();

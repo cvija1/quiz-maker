@@ -5,6 +5,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Home from "./pages/Home";
 import Review from "./pages/Review";
+import NewQuiz from "./pages/NewQuiz";
 const App = () => {
   return (
     <>
@@ -14,6 +15,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/review" element={<Review />} />
+            <Route path="/create" element={<NewQuiz />} />
           </Routes>
         </Router>
         <ToastContainer />
