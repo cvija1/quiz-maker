@@ -48,10 +48,10 @@ export const getQuizzes = createAsyncThunk(
 );
 
 export const getQuiz = createAsyncThunk(
-  "quizzes/get",
+  "quiz/get",
   async (quizId, thunkAPI) => {
     try {
-      return await quizService.getPurchase(quizId);
+      return await quizService.getQuiz(quizId);
     } catch (error) {
       const message =
         (error.response &&
@@ -67,10 +67,10 @@ export const getQuiz = createAsyncThunk(
 
 export const updateQuiz = createAsyncThunk(
   "quiz/update",
-  async (quizData, thunkAPI) => {
+  async (formData, thunkAPI) => {
     try {
-      const { quizId, formData } = quizData;
-      return await quizService.updateQuiz(quizId, formData);
+      const { id, quizData } = formData;
+      return await quizService.updateQuiz(id, quizData);
     } catch (error) {
       const message =
         (error.response &&
@@ -116,6 +116,7 @@ export const quizSlice = createSlice({
       .addCase(createQuiz.fulfilled, (state) => {
         state.isLoading = false;
         state.isSuccess = true;
+        state.message = "Uspjesno ste dodali novi kviz";
       })
       .addCase(createQuiz.rejected, (state, action) => {
         state.isLoading = false;
@@ -130,7 +131,7 @@ export const quizSlice = createSlice({
         state.quiz = action.payload;
         state.isLoading = false;
         state.isSuccess = true;
-        state.message = "Успјешно сте измијенили набавку";
+        state.message = "Uspjesno ste izmijenili kviz";
       })
       .addCase(updateQuiz.rejected, (state, action) => {
         state.isLoading = false;

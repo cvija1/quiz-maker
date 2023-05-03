@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router-dom";
 const QuizItem = ({ quiz }) => {
+  const navigate = useNavigate();
   return (
     <tr
-      onClick={() => console.log("sss")}
+      onClick={() => navigate(`/quiz/${quiz.id}`)}
       style={{ cursor: "pointer" }}
       className="table-dark "
     >

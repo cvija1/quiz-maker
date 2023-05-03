@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Home from "./pages/Home";
 import Review from "./pages/Review";
 import NewQuiz from "./pages/NewQuiz";
+import EditQuiz from "./pages/EditQuiz";
 const App = () => {
   return (
     <>
@@ -16,6 +17,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/review" element={<Review />} />
             <Route path="/create" element={<NewQuiz />} />
+            <Route path="/quiz/:id" element={<EditQuiz />} />
           </Routes>
         </Router>
         <ToastContainer />
