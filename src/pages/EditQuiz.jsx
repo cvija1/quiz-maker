@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import QuizForm from "../components/QuizForm";
-import { getQuiz } from "../features/quizzes/quizSlice";
+import { getQuiz, reset } from "../features/quizzes/quizSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "../components/Spinner";
 
@@ -12,6 +12,9 @@ const EditQuiz = () => {
 
   useEffect(() => {
     dispatch(getQuiz(params.id));
+    return () => {
+      dispatch(reset());
+    };
   }, []);
 
   if (isLoading) {

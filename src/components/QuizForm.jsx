@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createQuiz, reset, updateQuiz } from "../features/quizzes/quizSlice";
@@ -17,9 +17,14 @@ const QuizForm = ({ id }) => {
   const [inputList, setInputList] = useState([
     { question: "", answer: "", id: 1 },
   ]);
+
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
-    const list = [...inputList];
+    // const list = [...inputList];
+    const list = inputList.map((el) => {
+      return { ...el };
+    });
+
     list[index][name] = value;
     setInputList(list);
   };
@@ -53,7 +58,8 @@ const QuizForm = ({ id }) => {
       setPageTitle("Izmijeni kviz");
       setButtonTitle("Izmijeni kviz");
       if (quiz.questions.length > 0) {
-        setInputList(quiz.questions);
+        setInputList([...quiz.questions]);
+        //setInputList([{ question: "engleski", answer: "sidji", id: 1 }]);
       }
     } else {
       setTitle("");
@@ -119,7 +125,7 @@ const QuizForm = ({ id }) => {
           />
         </div>
         {inputList.map((x, i) => (
-          <>
+          <Fragment key={i}>
             <div className="col-md-12 mt-3 mt-md-3">
               <div className="col-md-12">
                 <p className="m-0 mb-2">{i + 1}. Pitanje</p>
@@ -174,7 +180,7 @@ const QuizForm = ({ id }) => {
                 </div>
               </div>
             </div>
-          </>
+          </Fragment>
         ))}
         <div className="mt-5 text-center">
           <button type="submit" className="btn btn-info btn-rsp">

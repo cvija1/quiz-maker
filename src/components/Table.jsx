@@ -1,7 +1,14 @@
 import { Link } from "react-router-dom";
 import QuizItem from "./QuizItem";
+import ModalDelete from "./ModalDelete";
+import { useState } from "react";
 
 const Table = ({ quizzes }) => {
+  const [quizForModal, setQuizForModal] = useState({});
+  const giveQuizToModal = (quiz) => {
+    setQuizForModal(quiz);
+  };
+
   return (
     <div className="flex-grow-1 bg-primary ">
       <div className="container rounded bg-dark p-4 text-white mt-4 mb-4">
@@ -25,12 +32,17 @@ const Table = ({ quizzes }) => {
             </thead>
             <tbody>
               {quizzes?.map((quiz) => (
-                <QuizItem key={quiz.id} quiz={quiz} />
+                <QuizItem
+                  giveQuizToModal={giveQuizToModal}
+                  key={quiz.id}
+                  quiz={quiz}
+                />
               ))}
             </tbody>
           </table>
         </div>
       </div>
+      <ModalDelete quiz={quizForModal} />
     </div>
   );
 };

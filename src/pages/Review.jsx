@@ -1,16 +1,39 @@
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getQuizzes } from "../features/quizzes/quizSlice";
+import { getQuizzes, reset } from "../features/quizzes/quizSlice";
 import Table from "../components/Table";
 import { useEffect } from "react";
 import Spinner from "../components/Spinner";
+import { toast } from "react-toastify";
 
 const Review = () => {
   const dispatch = useDispatch();
-  const { quizzes, isLoading } = useSelector((state) => state.quiz);
+  const { quizzes, isLoading, isSuccess, message } = useSelector(
+    (state) => state.quiz
+  );
   useEffect(() => {
     dispatch(getQuizzes());
   }, []);
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success(message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "dark",
+      });
+      dispatch(getQuizzes());
+    }
+
+    return () => {
+      dispatch(reset());
+    };
+  }, [isSuccess]);
 
   if (isLoading) {
     return <Spinner />;
