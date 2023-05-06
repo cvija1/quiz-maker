@@ -35,7 +35,9 @@ const StartQuiz = () => {
         {questions?.map((question, index) => (
           <Fragment key={index}>
             <div
-              className={index == 0 ? `carousel-item active` : `carousel-item`}
+              className={
+                index == 0 ? `carousel-item active ` : `carousel-item `
+              }
             >
               <div className="mx-auto  bg-dark col-9 rounded text-center pb-5 pt-5">
                 <h1 className=" text-info">{quiz.name}</h1>
@@ -57,7 +59,7 @@ const StartQuiz = () => {
           </Fragment>
         ))}
 
-        <div className="carousel-item ">
+        <div className="carousel-item  ">
           <div className="mx-auto  bg-dark col-9 rounded text-center pb-5 pt-5">
             <h1 className="text-info pb-1">{quiz.name}</h1>
             <h2 className="pt-4 pb-4 text-danger">Kraj kviza</h2>

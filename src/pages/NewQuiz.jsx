@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import QuizForm from "../components/QuizForm";
 import { useDispatch } from "react-redux";
-import { reset } from "../features/quizzes/quizSlice";
+import { getQuestions } from "../features/quizzes/quizSlice";
 
 const NewQuiz = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(reset());
+    dispatch(getQuestions());
   }, []);
   return (
     <div className="flex-grow-1 bg-primary d-flex justify-content-center row m-0">

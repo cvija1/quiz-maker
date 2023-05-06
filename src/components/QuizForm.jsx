@@ -8,9 +8,8 @@ import { toast } from "react-toastify";
 const QuizForm = ({ id }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLoading, isSuccess, isError, message, quiz } = useSelector(
-    (state) => state.quiz
-  );
+  const { isLoading, isSuccess, isError, message, quiz, questions } =
+    useSelector((state) => state.quiz);
   const [title, setTitle] = useState("");
   const [pageTitle, setPageTitle] = useState("Napravi novi kviz");
   const [buttonTitle, setButtonTitle] = useState("Napravi kviz");
@@ -24,11 +23,17 @@ const QuizForm = ({ id }) => {
     const list = inputList.map((el) => {
       return { ...el };
     });
-
     list[index][name] = value;
     setInputList(list);
   };
 
+  const setRecycle = (i, question) => {
+    const list = inputList.map((el) => {
+      return { ...el };
+    });
+    list[i] = question;
+    setInputList(list);
+  };
   const handleRemoveClick = (index) => {
     const list = [...inputList];
     for (let i = index; i < inputList.length; i++) {
@@ -59,7 +64,6 @@ const QuizForm = ({ id }) => {
       setButtonTitle("Izmijeni kviz");
       if (quiz.questions.length > 0) {
         setInputList([...quiz.questions]);
-        //setInputList([{ question: "engleski", answer: "sidji", id: 1 }]);
       }
     } else {
       setTitle("");
@@ -165,9 +169,32 @@ const QuizForm = ({ id }) => {
                       Dodaj pitanje
                     </button>
                   )}
-                  <button type="button" className="btn btn-primary me-1">
+                  <button
+                    type="button"
+                    className="btn btn-primary me-1 dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
                     Recikliraj
                   </button>
+                  <ul className="dropdown-menu">
+                    {questions.length > 0 ? (
+                      questions.map((question) => {
+                        return (
+                          <li key={question.id}>
+                            <a
+                              className="dropdown-item"
+                              onClick={() => setRecycle(i, question)}
+                            >
+                              {question.question}
+                            </a>
+                          </li>
+                        );
+                      })
+                    ) : (
+                      <li>Trenutno nema pitanja za recikliranje</li>
+                    )}
+                  </ul>
                   {inputList.length !== 1 && (
                     <button
                       onClick={() => handleRemoveClick(i)}

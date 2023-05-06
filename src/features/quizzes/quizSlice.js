@@ -4,6 +4,7 @@ import quizService from "./quizService";
 const initialState = {
   quizzes: [],
   additional: [],
+  questions: [],
   quiz: {},
   isSuccess: false,
   isError: false,
@@ -34,6 +35,23 @@ export const getQuizzes = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       return await quizService.getQuizzes();
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+export const getQuestions = createAsyncThunk(
+  "quizzes/getQusetions",
+  async (_, thunkAPI) => {
+    try {
+      return await quizService.getQuestions();
     } catch (error) {
       const message =
         (error.response &&
@@ -147,6 +165,18 @@ export const quizSlice = createSlice({
         state.quizzes = action.payload || [];
       })
       .addCase(getQuizzes.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(getQuestions.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getQuestions.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.questions = action.payload || [];
+      })
+      .addCase(getQuestions.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
