@@ -31,7 +31,7 @@ const QuizForm = ({ id }) => {
     const list = inputList.map((el) => {
       return { ...el };
     });
-    list[i] = question;
+    list[i] = { ...question, id: i + 1 };
     setInputList(list);
   };
   const handleRemoveClick = (index) => {
