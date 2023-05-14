@@ -35,7 +35,10 @@ const QuizForm = ({ id }) => {
     setInputList(list);
   };
   const handleRemoveClick = (index) => {
-    const list = [...inputList];
+    //const list = [...inputList];
+    const list = inputList.map((el) => {
+      return { ...el };
+    });
     for (let i = index; i < inputList.length; i++) {
       list[i].id = list[i].id - 1;
     }
